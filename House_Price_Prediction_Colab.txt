@@ -1,0 +1,60 @@
+# House Price Prediction using Linear Regression
+
+## Step 1: Install Required Libraries
+```python
+!pip install pandas scikit-learn matplotlib seaborn
+```
+
+## Step 2: Import Libraries
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+```
+
+## Step 3: Load Dataset
+```python
+data = pd.read_csv("train.csv")
+data.head()
+```
+
+## Step 4: Select Features and Target
+```python
+x = data[['GrLivArea', 'BedroomAbvGr', 'FullBath']]
+y = data['SalePrice']
+```
+
+## Step 5: Train-Test Split
+```python
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+```
+
+## Step 6: Train the Model
+```python
+model = LinearRegression()
+model.fit(x_train, y_train)
+```
+
+## Step 7: Make Predictions
+```python
+y_pred = model.predict(x_test)
+```
+
+## Step 8: Evaluate the Model
+```python
+print("Mean Squared Error:", mean_squared_error(y_test, y_pred))
+print("R² Score:", r2_score(y_test, y_pred))
+```
+
+## Step 9: Visualize Predictions
+```python
+plt.figure(figsize=(8,6))
+sns.scatterplot(x=y_test, y=y_pred)
+plt.xlabel("Actual Sale Price")
+plt.ylabel("Predicted Sale Price")
+plt.title("Actual vs Predicted House Prices")
+plt.show()
+```
